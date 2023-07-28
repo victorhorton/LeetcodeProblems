@@ -1,5 +1,5 @@
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.Stack;
 
 public class ValidParentheses {
 
@@ -16,7 +16,7 @@ public class ValidParentheses {
       parentheses.put('{', '}');
 
       boolean stringIsValid = true;
-      LinkedList<Character> parenthesesToValidate = new LinkedList<Character>();
+      Stack<Character> parenthesesToValidate = new Stack<Character>();
 
       for (int index = 0; index < s.length(); index++) {
 
@@ -28,16 +28,16 @@ public class ValidParentheses {
         } else if (parentheses.containsValue(s.charAt(index))) {
 
           // Checks if the last opening parenthese matches current closing
-          if (parenthesesToValidate.size() < 1 || parenthesesToValidate.getLast() != s.charAt(index)) {
+          if (parenthesesToValidate.empty() || parenthesesToValidate.peek() != s.charAt(index)) {
             return stringIsValid = false;
           } else {
             stringIsValid = true;
-            parenthesesToValidate.removeLast();
+            parenthesesToValidate.pop();
           }
         }
       }
 
-      return stringIsValid && parenthesesToValidate.size() == 0;
+      return stringIsValid && parenthesesToValidate.empty();
   }
 
   public static void main(String[] args) {
@@ -50,26 +50,26 @@ public class ValidParentheses {
     String test_7 = "([]";
     String test_8 = "){";
 
-    // System.out.print("True ");
-    // System.out.println(isValid(test_1));
+    System.out.print("True ");
+    System.out.println(isValid(test_1));
 
-    // System.out.print("False ");
-    // System.out.println(isValid(test_2));
+    System.out.print("False ");
+    System.out.println(isValid(test_2));
 
-    // System.out.print("False ");
-    // System.out.println(isValid(test_3));
+    System.out.print("False ");
+    System.out.println(isValid(test_3));
 
-    // System.out.print("True ");
-    // System.out.println(isValid(test_4));
+    System.out.print("True ");
+    System.out.println(isValid(test_4));
 
-    // System.out.print("False ");
-    // System.out.println(isValid(test_5));
+    System.out.print("False ");
+    System.out.println(isValid(test_5));
 
-    // System.out.print("False ");
-    // System.out.println(isValid(test_6));
+    System.out.print("False ");
+    System.out.println(isValid(test_6));
 
-    // System.out.print("False ");
-    // System.out.println(isValid(test_7));
+    System.out.print("False ");
+    System.out.println(isValid(test_7));
 
     System.out.print("False ");
     System.out.println(isValid(test_8));

@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class ValidParentheses {
 
@@ -15,43 +16,28 @@ public class ValidParentheses {
       parentheses.put('{', '}');
 
       boolean stringIsValid = true;
-      char[] parenthesesToValidate = new char[s.length()];
-      int parenthesesToValidateIndex = 0;
-
-      int openingCharacters = 0;
-      int closingCharacters = 0;
+      LinkedList<Character> parenthesesToValidate = new LinkedList<Character>();
 
       for (int index = 0; index < s.length(); index++) {
 
         // Runs for opening characters
         if (parentheses.containsKey(s.charAt(index))) {
-          openingCharacters++;
-          stringIsValid = false;
-
-          // Adds opening parentheses to array to be checked later
-          parenthesesToValidate[parenthesesToValidateIndex] = s.charAt(index);
-          parenthesesToValidateIndex++;
+          parenthesesToValidate.add(parentheses.get(s.charAt(index)));
 
         // Runs for closing characters
-        } else if (parentheses.containsValue(s.charAt(index)) && parenthesesToValidateIndex > 0) {
-          closingCharacters++;
-          parenthesesToValidateIndex--;
+        } else if (parentheses.containsValue(s.charAt(index))) {
 
           // Checks if the last opening parenthese matches current closing
-          if (parentheses.get(parenthesesToValidate[parenthesesToValidateIndex]) != s.charAt(index)) {
-            stringIsValid = false;
-            break;
+          if (parenthesesToValidate.size() < 1 || parenthesesToValidate.getLast() != s.charAt(index)) {
+            return stringIsValid = false;
           } else {
             stringIsValid = true;
+            parenthesesToValidate.removeLast();
           }
-        // Runs for non-parentheses characters
-        } else {
-          stringIsValid = false;
-          break;
         }
       }
 
-      return stringIsValid && openingCharacters == closingCharacters;
+      return stringIsValid && parenthesesToValidate.size() == 0;
   }
 
   public static void main(String[] args) {
@@ -62,13 +48,30 @@ public class ValidParentheses {
     String test_5 = "{";
     String test_6 = "]";
     String test_7 = "([]";
+    String test_8 = "){";
 
-    System.out.println(isValid(test_1));
-    System.out.println(isValid(test_2));
-    System.out.println(isValid(test_3));
-    System.out.println(isValid(test_4));
-    System.out.println(isValid(test_5));
-    System.out.println(isValid(test_6));
-    System.out.println(isValid(test_7));
+    // System.out.print("True ");
+    // System.out.println(isValid(test_1));
+
+    // System.out.print("False ");
+    // System.out.println(isValid(test_2));
+
+    // System.out.print("False ");
+    // System.out.println(isValid(test_3));
+
+    // System.out.print("True ");
+    // System.out.println(isValid(test_4));
+
+    // System.out.print("False ");
+    // System.out.println(isValid(test_5));
+
+    // System.out.print("False ");
+    // System.out.println(isValid(test_6));
+
+    // System.out.print("False ");
+    // System.out.println(isValid(test_7));
+
+    System.out.print("False ");
+    System.out.println(isValid(test_8));
  }
 }

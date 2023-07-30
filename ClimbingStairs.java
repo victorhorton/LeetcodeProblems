@@ -5,15 +5,15 @@ public class ClimbingStairs {
     int leading_value = 1;
     int trailing_value = 1;
 
-    // Calculates sequence n times
-    for (int i = 0; i < n; i++) {
+    // Calculates sequence n - 1 times
+    for (int i = 0; i < n - 1; i++) {
       int temp_one = leading_value;
       leading_value += trailing_value;
       trailing_value = temp_one;
     }
 
-    // Returns the value of the nth calculation
-    return trailing_value;
+    // Returns the value of the nth - 1 calculation
+    return leading_value;
 
     /*
       Fibnacci's sequence

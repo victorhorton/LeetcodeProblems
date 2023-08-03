@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 class MaximumDepthOfBinaryTree {
 
     public static class TreeNode {
@@ -15,6 +18,33 @@ class MaximumDepthOfBinaryTree {
 
     public static int maxDepth(TreeNode root) {
         int result = 0;
+
+        if (root == null) {
+            return result;
+        }
+
+        Queue<TreeNode> node_queue = new LinkedList<TreeNode>();
+        node_queue.add(root);
+
+        TreeNode current = root;
+
+        while (!node_queue.isEmpty()) {
+
+            int current_queue_size = node_queue.size();
+
+            for (int i = 0; i < current_queue_size; i++) {
+                current = node_queue.remove();
+
+                if (current.left != null) {
+                    node_queue.add(current.left);
+                }
+                if (current.right != null) {
+                    node_queue.add(current.right);
+                }
+            }
+
+            result++;
+        }
 
         return result;
     }
@@ -45,11 +75,24 @@ class MaximumDepthOfBinaryTree {
         )
        );
 
+       TreeNode test_3 = new TreeNode(
+        1,
+        null,
+        new TreeNode(
+            2,
+            null,
+            null
+        )
+       );
+
        System.out.print("3: ");
        System.out.println(maxDepth(test_1));
+
        System.out.print("3: ");
        System.out.println(maxDepth(test_2));
 
+       System.out.print("2: ");
+       System.out.println(maxDepth(test_3));
     }
 
 }
